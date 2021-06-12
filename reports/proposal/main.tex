@@ -22,17 +22,17 @@
 \acmISBN{123-4567-24-567/08/06}
 
 %Conference
-\acmConference[SHORTNAME'17]{ACM Long Conference Name conference}{July 1997}{City, State, Country} 
-\acmYear{2017}
-\copyrightyear{2017}
+\acmConference[CSCI-5502 '21]{CSCI-5502 Data Mining Summer 2021}{June 2021}{Boulder, CO, USA} 
+\acmYear{2021}
+\copyrightyear{2021}
 
 \acmPrice{15.00}
 
 
 \begin{document}
 \title{CSCI 5502 Project Proposal}
-\titlenote{Produces the permission block, and copyright information}
-\subtitle{Extended Abstract}
+\titlenote{This proposal is part 2 of the CSCI-5502 Data Mining Project}
+\subtitle{Global Risk Perception During the COVID-19 Pandemic}
 
 \author{Son Pham}
 \authornote{Note}
@@ -60,26 +60,32 @@
 \author{Firstname Lastname}
 \orcid{1234-5678-9012}
 \affiliation{%
-  \institution{Affiliation}
+  \institution{CU Boulder}
+  \streetaddress{Address}
+  \city{Boulder} 
+  \state{Colorado} 
+  \postcode{80309}
 }
 \email{email@domain.com}
 
 \author{Firstname Lastname}
 \orcid{1234-5678-9012}
 \affiliation{%
-  \institution{Affiliation}
+  \institution{CU Boulder}
+  \streetaddress{Address}
+  \city{Boulder} 
+  \state{Colorado} 
+  \postcode{80309}
 }
 \email{email@domain.com}
 
 
 % The default list of authors is too long for headers}
-\renewcommand{\shortauthors}{F. Lastname et al.}
+\renewcommand{\shortauthors}{S. Pham et al.}
 
 
 \begin{abstract}
-This paper provides a sample of a \LaTeX\ document which conforms,
-somewhat loosely, to the formatting guidelines for
-ACM SIG Proceedings.\footnote{This is an abstract footnote}
+This paper focuses on how COVID-19 information was communicated within and between different countries, reactions of governments to the pandemic, and attitudes and risk perceptions people had towards the virus. The major questions to answer are how digital communications influenced people’s interpretation of the news, what their responses to the new laws and mandates were, and their beliefs and concerns about it versus other world issues.\footnote{This is an abstract footnote}
 \end{abstract}
 
 %
@@ -89,47 +95,68 @@ ACM SIG Proceedings.\footnote{This is an abstract footnote}
 %
 \begin{CCSXML}
 <ccs2012>
- <concept>
-  <concept_id>10010520.10010553.10010562</concept_id>
-  <concept_desc>Computer systems organization~Embedded systems</concept_desc>
-  <concept_significance>500</concept_significance>
- </concept>
- <concept>
-  <concept_id>10010520.10010575.10010755</concept_id>
-  <concept_desc>Computer systems organization~Redundancy</concept_desc>
-  <concept_significance>300</concept_significance>
- </concept>
- <concept>
-  <concept_id>10010520.10010553.10010554</concept_id>
-  <concept_desc>Computer systems organization~Robotics</concept_desc>
-  <concept_significance>100</concept_significance>
- </concept>
- <concept>
-  <concept_id>10003033.10003083.10003095</concept_id>
-  <concept_desc>Networks~Network reliability</concept_desc>
-  <concept_significance>100</concept_significance>
- </concept>
-</ccs2012>  
+   <concept>
+       <concept_id>10002951.10003317.10003359.10011699</concept_id>
+       <concept_desc>Information systems~Presentation of retrieval results</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002978.10003029.10003032</concept_id>
+       <concept_desc>Security and privacy~Social aspects of security and privacy</concept_desc>
+       <concept_significance>300</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002950.10003648</concept_id>
+       <concept_desc>Mathematics of computing~Probability and statistics</concept_desc>
+       <concept_significance>300</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002951.10002952</concept_id>
+       <concept_desc>Information systems~Data management systems</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002951.10002952.10003219</concept_id>
+       <concept_desc>Information systems~Information integration</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002951.10002952.10002953</concept_id>
+       <concept_desc>Information systems~Database design and models</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+   <concept>
+       <concept_id>10002951.10002952.10003197</concept_id>
+       <concept_desc>Information systems~Query languages</concept_desc>
+       <concept_significance>500</concept_significance>
+       </concept>
+ </ccs2012>
 \end{CCSXML}
 
-\ccsdesc[500]{Computer systems organization~Embedded systems}
-\ccsdesc[300]{Computer systems organization~Redundancy}
-\ccsdesc{Computer systems organization~Robotics}
-\ccsdesc[100]{Networks~Network reliability}
+\ccsdesc[500]{Information systems~Presentation of retrieval results}
+\ccsdesc[300]{Security and privacy~Social aspects of security and privacy}
+\ccsdesc[300]{Mathematics of computing~Probability and statistics}
+\ccsdesc[500]{Information systems~Data management systems}
+\ccsdesc[500]{Information systems~Information integration}
+\ccsdesc[500]{Information systems~Database design and models}
+\ccsdesc[500]{Information systems~Query languages}
 
 % We no longer use \terms command
 %\terms{Theory}
 
-\keywords{ACM proceedings}
+\keywords{Data Mining, Covid-19, Risk Perception, Communication}
 
 
 \maketitle
 
-\section{Section}
 
-Refer to \verb|acmart.pdf| \cite{veytsmanlatex} (\url{https://www.ctan.org/pkg/acmart}, \url{http://www.acm.org/publications/proceedings-template}) for additional examples and instructions.
+\section{Introduction}
 
-\subsection{Subsection}
+This is the introduction to the introduction section, introducing the problem statement and motivation behind the chosen project. What knowledge and how would you apply that knowledge? What is interesting that you hope to find?
+
+\subsection{Motivation}
+
+Go in detail about the problem statement and motivation.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Sed aliquam nisl turpis, sit amet mollis leo accumsan vel.
@@ -155,7 +182,7 @@ Donec orci nulla, viverra et mi in, sagittis egestas urna.
   \label{fig:sample}
 \end{figure}
 
-\subsubsection{Subsubsection}
+\subsubsection{Subsubsection if needed}
 
 Integer eleifend quam et odio iaculis, at elementum augue aliquam.
 Ut eu nibh nec urna finibus semper fermentum id purus.
@@ -164,16 +191,90 @@ Cras viverra elit congue erat pulvinar, vitae vehicula tortor interdum.
 Aliquam commodo mi sapien, ullamcorper egestas velit tempor nec.
 Quisque sapien velit, fringilla non vulputate nec, lacinia in dui.
 Nam vestibulum volutpat ante, eu sodales enim tincidunt vel.
-Ut mollis elit quis bibendum eleifend.
-In laoreet tortor non odio ultrices mollis.
-Curabitur volutpat et risus quis fermentum.
-Morbi laoreet ligula eget orci consectetur, in dictum ipsum efficitur.
-Mauris nec neque ultricies, efficitur elit id, hendrerit nibh.
-Interdum et malesuada fames ac ante ipsum primis in faucibus.
+
+
+
+\section{Literature Survey}
+
+Describe and site all any literature found.
+
+\subsection{Literature subsection (if needed)}
+
+Go in detail about each literature
+
+
+
+\section{Proposed Work}
+
+What do you need to do for data collection, preprocessing (cleaning, integrating, transforming, etc.) processing for derived data, design, evaluation...
+Describe how it is different that what has been done previously from your literature survey (or if replicating).
+
+\subsection{Proposed Work subsection (if needed)}
+
+Go in detail about each proposed work
+
+
+
+\section{Data Set}
+
+Make sure you have the data set!. Provude URL and details about the data set (similar to hw1, ch2, etc)
+
+\subsection{Data set subsection (if needed)}
+
+Go in detail about the dataset
+
+
+
+\section{Evaluation Methods}
+
+e.g.: metrics, existing solutions...
+
+\subsection{Evaluation methods subsection (if needed)}
+
+Go in detail about the evaluation methods
+
+
+
+\section{Tools}
+
+python, mongodb, git, etc...
+
+\subsection{Tools subsection (if needed)}
+
+Go in detail about the tools used
+
+
+
+\section{Milestones}
+
+what you plan to have done by when: \\
+Week of June 21st: Project Part 1: Project Proposal \\
+Week of July 5th: Project Part 2: Proposal Paper \\
+Week of July 26th: Project Part 3: Progress Report \\ 
+Week of August 9th: Project File Report, Project Presentation, Peer Evaluation \\
+
+do we need a gnant chart?
+
+\subsection{Milestones subsection (if needed)}
+
+Go in detail about the schedule
 
 
 
 \paragraph{Paragraph}
+
+Nulla scelerisque id lectus a luctus.
+Curabitur quis dolor maximus, maximus erat ut, placerat justo.
+Donec auctor purus a lacus molestie maximus.
+Etiam porta ligula a quam mollis efficitur.
+Quisque vel sapien iaculis, pellentesque lorem nec, hendrerit lectus.
+Vestibulum egestas congue euismod.
+Praesent a tristique massa.
+Aliquam eget ante elit.
+Phasellus eget metus mi.
+Fusce nec rutrum mi.
+Pellentesque eu congue mi.
+Fusce eu ullamcorper est.
 
 Nulla scelerisque id lectus a luctus.
 Curabitur quis dolor maximus, maximus erat ut, placerat justo.
