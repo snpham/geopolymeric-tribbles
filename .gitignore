@@ -2,7 +2,6 @@
 *.log
 *.aux
 *.make
-/*.pdf
 *.d
 *.bbl
 *.blg
