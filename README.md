@@ -6,11 +6,20 @@
 * Son Pham, Kyle Rogers, Reiko Matsuda-dunn, Ryan Karasopoulos  
 
 ### Project Description
-* This paper focuses on how COVID-19 information was communicated within and between different countries, government reactions to the pandemic, and attitudes and risk perceptions people had towards the virus. 
+* This project focuses on individual susceptibility to misinformation regarding COVID-19. Possible predictors include:
+    - How information was communicated
+    - Reactions of governments to the pandemic
+    - Attitudes and risk perceptions people had towards the virus
+    - Trust in science and/or journalists
+    - Political ideology
 
 ### Summary of questions and answers
-* Questions: The major questions to answer are how digital communications influenced people’s interpretation of the news, what their responses to the new laws and mandates were, and their beliefs and concerns about it versus other world issues.
-
+* Questions: The major questions to answer:
+    - How digital communications influenced people’s interpretation of the news
+    - Did susceptibility to misinformation predict the responses to the new laws and mandates
+    - Beliefs and concerns about COVID-19 versus other world issues
+    - The similarity and trends among the different countries
+    
 * Answers: TBD
 
 ### Application of gained knowledge
