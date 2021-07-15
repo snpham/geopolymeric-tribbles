@@ -19,3 +19,4 @@
 .latexrun.db*
 *.toc
 old
+dataset
