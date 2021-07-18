@@ -83,8 +83,8 @@
 30, CultCog_6, ["People often disagree about how far to let individuals go in making decisions for themselves.\r\n\r\n\r\n\r\nHow strongly do you agree or disagree with each of these statements? - Government should put limits on the choices individuals can make so they don't get in the way of what's good for society."
  "Government should put limits on the choices individuals can make so they don't get in the way of what's good for society."
  '1 = strongly disagree - 6 = Strongly agree'] 
-31, prosocial, ['To what extent do you think itï¿½ï¿½ï¿½s important to do things for the benefit of others and society even if they have some costs to you personally?'
- 'To what extent do you think itï¿½s important to do things for the benefit of others and society even if they have some costs to you personally?'
+31, prosocial, ['To what extent do you think it‚Äôs important to do things for the benefit of others and society even if they have some costs to you personally?'
+ 'To what extent do you think it’s important to do things for the benefit of others and society even if they have some costs to you personally?'
  '1 = not at all, 7 = very much so'] 
 32, CanadaQ_1, ['How much do you agree or disagree with the following statements? - Getting sick with the coronavirus/COVID-19 can be serious.'
  'Getting sick with the coronavirus/COVID-19 can be serious.'
@@ -116,9 +116,9 @@
  'How worried were you about coronavirus 1 week ago?'
  '1 = not at all worried, 7 = very worried'] 
 44, Longitude_2, ['Thinking back, how worried were you about coronavirus/COVID-19... - 1 month ago?'
- 'ï¿½1 month ago?' '1 = not at all worried, 7 = very worried'] 
+ '…1 month ago?' '1 = not at all worried, 7 = very worried'] 
 45, Longitude_3, ['Thinking back, how worried were you about coronavirus/COVID-19... - 2 months ago?'
- 'ï¿½2 months ago?' '1 = not at all worried, 7 = very worried'] 
+ '…2 months ago?' '1 = not at all worried, 7 = very worried'] 
 46, Personal_1, ['How likely do you think it is that you will be directly and personally affected by the following in the next 6 months? - Crime'
  'How likely do you think it is that you will be directly and personally affected by the following in the next 6 months? Crime'
  '1= not at all likely, 7 = very likely'] 
@@ -215,14 +215,14 @@
 77, prep, ['Which of the following steps, if any, have you taken in the last month to prepare for the possibility of many cases of the coronavirus/COVID-19 in your community? Select all that apply.'
  'Which of the following steps, if any, have you taken in the last month to prepare for the possibility of many cases of the coronavirus/COVID-19 in your community? Select all that apply.'
  '1 = washing hands more often, 2 = using alcohol-based hand sanitizer more often, 3 = wearing a face mask, 4 = avoiding social events, 5 = avoiding public transport, 6 = eating out less, 7 = touching your face less, 8 = shopping for groceries less, 9 = cooking at home more, 10 = staying home from work, 11 = purchasing extra supplies'] 
-78, Govresponse_1, ['Please rate your answers to the following questions.Each rating should be in relation to the response in the country you are living in: - How much do you feel you understand the governmentï¿½ï¿½ï¿½s strategy to deal with the coronavirus/COVID-19 pandemic?'
+78, Govresponse_1, ['Please rate your answers to the following questions.Each rating should be in relation to the response in the country you are living in: - How much do you feel you understand the government‚Äôs strategy to deal with the coronavirus/COVID-19 pandemic?'
  "How much do you feel you understand the government's strategy to deal with the coronavirus/COVID-19 pandemic?"
  '1 = not at all, 7 = very much'] 
-79, Govresponse_2, ['Please rate your answers to the following questions.Each rating should be in relation to the response in the country you are living in: - How much do you trust the countryï¿½ï¿½ï¿½s politicians to deal effectively with the pandemic?'
- 'How much do you trust the countryï¿½s politicians to deal effectively with the pandemic?'
+79, Govresponse_2, ['Please rate your answers to the following questions.Each rating should be in relation to the response in the country you are living in: - How much do you trust the country‚Äôs politicians to deal effectively with the pandemic?'
+ 'How much do you trust the country’s politicians to deal effectively with the pandemic?'
  '1 = not at all, 7 = very much'] 
-80, Govresponse_3, ['Please rate your answers to the following questions.Each rating should be in relation to the response in the country you are living in: - How much do you trust the countryï¿½ï¿½ï¿½s national scientific and medical advisors to know the best measures to take in the face of the pandemic?'
- 'How much do you trust the countryï¿½s national scientific and medical advisors to know the best measures to take in the face of the pandemic?'
+80, Govresponse_3, ['Please rate your answers to the following questions.Each rating should be in relation to the response in the country you are living in: - How much do you trust the country‚Äôs national scientific and medical advisors to know the best measures to take in the face of the pandemic?'
+ 'How much do you trust the country’s national scientific and medical advisors to know the best measures to take in the face of the pandemic?'
  '1 = not at all, 7 = very much'] 
 81, Govresponse_4, ['Please rate your answers to the following questions.Each rating should be in relation to the response in the country you are living in: - How much do you trust experts who are not connected with the government who are commenting on measures planned for the pandemic?'
  'How much do you trust experts who are not connected with the government who are commenting on measures planned for the pandemic?'
