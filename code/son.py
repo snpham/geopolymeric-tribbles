@@ -2,30 +2,31 @@ import numpy as np
 import pandas as pd
 
 
-def get_cols():
+def get_metadata():
+
     data = pd.read_feather('study_data/integrated_data_old.feather')
+    data[:][:3] = data[:][:3].replace(r'\s',' ', regex=True)
 
-    print(data.head())
-    print(data.columns)
-
-    with open('outputs/columns.csv', 'w') as f:
+    with open('study_data/metadata.csv', 'w') as f:
         for ii, column in enumerate(data.columns):
-            f.writelines(f'{ii}, {column}, {data[column][:3].values} \n')
+            if column in ['Num1', 'Num2a', 'Num2b', 'Num3']:
+                f.writelines(f'{ii},{column},"{data.iloc[0,ii]}"\n')
+            else:
+                f.writelines(f'{ii},{column},"{data.iloc[1,ii]}","{data.iloc[2,ii]}"\n')
 
 
 if __name__ == '__main__':
 
     # get headers for reference
-    # get_cols()
+    get_metadata()
 
     # get a list of attributes and their types
-    d = {}
     with open('code/attr_types.txt') as f:
-        d = dict(x.rstrip().split(None, 1) for x in f)
+        attrs = dict(x.rstrip().split(None, 1) for x in f)
 
     # read integrated dataset
-    data = pd.read_feather('study_data/integrated_data_old.feather')
-
+    data = pd.read_feather('study_data/integrated_data.feather').\
+        astype('string').set_index('index')
     # print(data.head())
     # print(data.columns)
 
@@ -71,24 +72,31 @@ if __name__ == '__main__':
                   'Ethnic min': 1,
                   'Politics': 1,}
 
+    numeric_attrs = ['Num1', 'Num2a', 'Num2b', 'Num3']
+    for num in numeric_attrs:
+        data[num] = data[num].astype('float64')
+    # print(data.info())
+
     # which cases to we want to run to see pandas' describe() results?
     all_cases = True
     if all_cases: # all cases
-        cases2run = []
-        for attr in attributes.keys():
-            cases2run.append(attr)
-    else: # single or set of cases
-        cases2run = ['Trustingroups']
+        cases2run = data.columns.tolist()
+    else: # set single or set of cases here
+        cases2run = ['Trustingroups_1', 'COVIDexp']
+    data = data[cases2run].copy()
 
-    # run describe() function
-    dfstats = pd.DataFrame()
-    for case in cases2run:
-        for att in range(1, attributes[case]+1):
-            if attributes[case] > 1:
-                dfstats[f'{case}_{att}'] = data[f'{case}_{att}'].describe()
-            else:
-                dfstats[f'{case}'] = data[f'{case}'].describe()
-    dfstats = dfstats.T
+    # run describe() function on nominal/binary/ordinal attributes
+    try:
+        dfstats = data.describe(exclude=[np.number]).T
+        dfstats.index.name = 'attribute'
+        dfstats.to_csv('outputs/dfstats.csv')
+    except ValueError:
+        print('No categorical data')
 
-    dfstats.to_csv('outputs/df_stats.csv')
-
+    # run describe() function on numerical attributes
+    try:
+        dfstats_num = data.describe(include=[np.number]).T
+        dfstats_num.index.name = 'attribute'
+        dfstats_num.to_csv('outputs/dfstats_num.csv')
+    except ValueError:
+        print('No numerical data')

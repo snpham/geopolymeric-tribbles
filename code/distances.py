@@ -1,6 +1,9 @@
 import numpy as np
 import pandas as pd
 
+"""this actually includes dissimilarity analysis functions, not just distances
+"""
+
 
 def dissimilarity_nominal(dataset=None, p=None, m=None, weights=None):
     """computes the dissimilarity b/t two objects (for nominal

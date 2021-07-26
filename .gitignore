@@ -20,3 +20,4 @@
 *.toc
 old
 dataset
+.ipynb_checkpoints

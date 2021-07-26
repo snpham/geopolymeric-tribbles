@@ -37,4 +37,4 @@ DemAge, numeric
 DemEdu, ordinal
 DemHealthcare, binary
 Ethnic min, nominal
-Politics, ordinal'
+Politics, ordinal
