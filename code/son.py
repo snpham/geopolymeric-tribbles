@@ -21,7 +21,7 @@ if __name__ == '__main__':
     get_metadata()
 
     # get a list of attributes and their types
-    with open('code/attr_types.txt') as f:
+    with open('study_data/attr_types.txt') as f:
         attrs = dict(x.rstrip().split(None, 1) for x in f)
 
     # read integrated dataset
