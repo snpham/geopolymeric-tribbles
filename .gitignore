@@ -21,3 +21,5 @@
 old
 dataset
 .ipynb_checkpoints
+outputs/plots
+__pycache__
