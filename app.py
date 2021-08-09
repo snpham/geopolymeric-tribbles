@@ -59,8 +59,8 @@ for ii, country in enumerate(countries):
     gobars.append(go.Bar(name=country, x=list(scans1_country.keys()), 
                          y=list(scans1_country.values()), base=0))
 Support_AllCountries = go.Figure(data=gobars[:])
-Support_AllCountries.update_layout(title=f'Support of Preparation Activities, by Country '
-                                         f'- frequentset-1. min support: {min_sup}')
+Support_AllCountries.update_layout(title=f'Support of Preparation Activities, by Country <br>'
+                                         f'          - frequentset-1. min support: {min_sup}')
 # Change the bar mode
 Support_AllCountries.update_layout(barmode='relative', 
     xaxis=dict(title='activity',titlefont_size=16,tickfont_size=14),
@@ -88,8 +88,8 @@ prep_merged = pd.DataFrame.from_dict(prep_merged, orient='index',
                                      columns=['support'])
 freqset_1 = px.bar(prep_merged, y='support', x=prep_merged.index, 
                    labels={'index': 'activity'})
-freqset_1.update_layout(title=f'Support of Preparation Activities by Country '
-                f'- frequentset-1. min support: {min_sup/len(dataset_prep)}')
+freqset_1.update_layout(title=f'Support of Preparation Activities by Country <br>'
+                f'          - frequentset-1. min support: {min_sup/len(dataset_prep)}')
 freqset_1.update_traces(update_traces)
 freqset_1.update_layout(update_layout)
 
@@ -107,8 +107,8 @@ freqset_2 = px.bar(prep2_supp, x=prep2_supp.index, y='support',
 freqset_2.update_traces(update_traces)
 freqset_2.update_layout(update_layout)
 freqset_2.update_layout(dict(yaxis=dict(range=[0.4, 0.9])))
-freqset_2.update_layout(title=f'Support of Preparation Activities, Global '
-                f'- frequentset-2. min support: {min_sup/len(dataset_prep)}')
+freqset_2.update_layout(title=f'Support of Preparation Activities, Global <br>'
+                f'          - frequentset-2. min support: {min_sup/len(dataset_prep)}')
 
 
 ## graph 4 ##
@@ -120,75 +120,118 @@ freqset_3 = px.bar(prep3_supp, x=prep3_supp.index, y='support',
 freqset_3.update_traces(update_traces)
 freqset_3.update_layout(update_layout)
 freqset_3.update_layout(dict(yaxis=dict(range=[0.4, 0.9])))
-freqset_3.update_layout(title=f'Support of Preparation Activities, Global '
-                f'- frequentset-3. min support: {min_sup/len(dataset_prep)}')
+freqset_3.update_layout(title=f'Support of Preparation Activities, Global <br>'
+                f'          - frequentset-3. min support: {min_sup/len(dataset_prep)}')
 
 
 ########### Initiate the app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets,
+        meta_tags=[{'name': 'viewport', 'content': 'width=device-width, initial-scale=1'}])
 server = app.server
 app.title='COVID-19 Misinformation Project'
+
 
 ########### Set up the layout
 app.layout = html.Div(style={'backgroundColor': colors['background']}, 
     children=[
         html.H1('CSCI-5502 Project', style={'color': colors['text']}),
-        dcc.Graph(
-            id='activity_table',
-            figure=activity_table
-        ),
-        html.P("Graph 1 Hovermode", style={'color': colors['text']}),
-        dcc.RadioItems(
-            id='hovermode_g1', style={'color': colors['text']},
-            labelStyle={'display': 'inline-block'},
-            options=[{'label': x, 'value': x} 
-                    for x in ['x', 'x unified', 'closest']],
-            value='x unified'
-        ),
-        dcc.Graph(
-            id='Support_AllCountries',
-            figure=Support_AllCountries
-        ),
-        html.P("Graph 2 Hovermode", style={'color': colors['text']}),
-        dcc.RadioItems(
-            id='hovermode_g2', style={'color': colors['text']},
-            labelStyle={'display': 'inline-block'},
-            options=[{'label': x, 'value': x} 
-                    for x in ['x', 'x unified', 'closest']],
-            value='x unified'
-        ),
-        dcc.Graph(
-            id='freqset_1',
-            figure=freqset_1
-        ),
-        html.P("Graph 3 Hovermode", style={'color': colors['text']}),
-        dcc.RadioItems(
-            id='hovermode_g3', style={'color': colors['text']},
-            labelStyle={'display': 'inline-block'},
-            options=[{'label': x, 'value': x} 
-                    for x in ['x', 'x unified', 'closest']],
-            value='x unified'
-        ),
-        dcc.Graph(
-            id='freqset_2',
-            figure=freqset_2
-        ),
-        html.P("Graph 4 Hovermode", style={'color': colors['text']}),
-        dcc.RadioItems(
-            id='hovermode_g4', style={'color': colors['text']},
-            labelStyle={'display': 'inline-block'},
-            options=[{'label': x, 'value': x} 
-                    for x in ['x', 'x unified', 'closest']],
-            value='x unified'
-        ),
-        dcc.Graph(
-            id='freqset_3',
-            figure=freqset_3
-        ),
-        html.A('Project Code on Github', 
-            href='https://github.com/summeryriddles/geopolymeric-tribbles'),
-        html.Br(),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Table description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                dcc.Graph(
+                id='activity_table',
+                figure=activity_table,
+                ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 1 description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                html.P("Graph 1 Hovermode", style={'color': colors['text']}),
+                dcc.RadioItems(
+                    id='hovermode_g1', style={'color': colors['text']},
+                    labelStyle={'display': 'inline-block'},
+                    options=[{'label': x, 'value': x} 
+                            for x in ['x', 'x unified', 'closest']],
+                    value='x unified'),
+                dcc.Graph(
+                    id='Support_AllCountries',
+                    figure=Support_AllCountries,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 2 description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                html.P("Graph 2 Hovermode", style={'color': colors['text']}),
+                dcc.RadioItems(
+                    id='hovermode_g2', style={'color': colors['text']},
+                    labelStyle={'display': 'inline-block'},
+                    options=[{'label': x, 'value': x} 
+                            for x in ['x', 'x unified', 'closest']],
+                    value='x unified'),
+                dcc.Graph(
+                    id='freqset_1',
+                    figure=freqset_1,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 3 description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                html.P("Graph 3 Hovermode", style={'color': colors['text']}),
+                dcc.RadioItems(
+                    id='hovermode_g3', style={'color': colors['text']},
+                    labelStyle={'display': 'inline-block'},
+                    options=[{'label': x, 'value': x} 
+                            for x in ['x', 'x unified', 'closest']],
+                    value='x unified'),
+                dcc.Graph(
+                    id='freqset_2',
+                    figure=freqset_2,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 4 description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                html.P("Graph 4 Hovermode", style={'color': colors['text']}),
+                dcc.RadioItems(
+                    id='hovermode_g4', style={'color': colors['text']},
+                    labelStyle={'display': 'inline-block'},
+                    options=[{'label': x, 'value': x} 
+                            for x in ['x', 'x unified', 'closest']],
+                    value='x unified'),
+                dcc.Graph(
+                    id='freqset_3',
+                    figure=freqset_3,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.A('Project Code on Github', 
+                href='https://github.com/summeryriddles/geopolymeric-tribbles'),
+            html.Br(),])
         ]
     )
 
@@ -228,6 +271,8 @@ def update_hovermode(mode, fig_json):
     fig = go.Figure(fig_json)
     fig.update_layout(hovermode=mode)
     return fig
+
+
 
 if __name__ == '__main__':
     app.run_server()
