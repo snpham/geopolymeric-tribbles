@@ -2,7 +2,7 @@ import plotly.graph_objs as go
 import pandas as pd
 import plotly.express as px
 from scripts.frequents import apriori
-
+from scripts.DBSCAN_plots import *
 
 savefigs = False
 
@@ -231,6 +231,9 @@ num4_stats = px.box(numerical_dataset[numerical_dataset['Num3'] <= 1], x="Reside
 num4_stats.add_shape(type='line', x0='AU',y0=0.5,x1='US',y1=0.5,
                 line=dict(color='Red',), xref='x', yref='y')
 # num4_stats.show()
+
+
+
 
 
 

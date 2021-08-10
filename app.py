@@ -21,6 +21,49 @@ app.title='COVID-19 Misinformation Project'
 app.layout = html.Div(style={'backgroundColor': colors['background']}, 
     children=[
         html.H1('CSCI-5502 Project', style={'color': colors['text']}),
+        ## clustering
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 12 description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                html.P("Graph 12 Hovermode", style={'color': colors['text']}),
+                dcc.RadioItems(
+                    id='hovermode_g12', style={'color': colors['text']},
+                    labelStyle={'display': 'inline-block'},
+                    options=[{'label': x, 'value': x} 
+                            for x in ['x', 'x unified', 'closest']],
+                    value='closest'),
+                dcc.Graph(
+                    id='SocialmediatrustQ1',
+                    figure=SocialmediatrustQ1,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 13 description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                html.P("Graph 13 Hovermode", style={'color': colors['text']}),
+                dcc.RadioItems(
+                    id='hovermode_g13', style={'color': colors['text']},
+                    labelStyle={'display': 'inline-block'},
+                    options=[{'label': x, 'value': x} 
+                            for x in ['x', 'x unified', 'closest']],
+                    value='closest'),
+                dcc.Graph(
+                    id='Politics',
+                    figure=Politics,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+
+        # apriori
         html.Div([
             html.Div([
                 html.H3('Column 1', style={'color': colors['text']}),
@@ -113,6 +156,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                     ),
                     ], className="six columns"),
                 ], className="row"),
+        # bayesian
         html.Div([
             html.Div([
                 html.H3('Column 1', style={'color': colors['text']}),
@@ -173,7 +217,6 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                     ),
                     ], className="six columns"),
                 ], className="row"),
-
         ## numerical plots
         html.Div([
             html.Div([
@@ -255,9 +298,6 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                     ),
                     ], className="six columns"),
                 ], className="row"),
-
-
-
         html.Div([
             html.A('Project Code on Github', 
                 href='https://github.com/summeryriddles/geopolymeric-tribbles'),
@@ -365,7 +405,23 @@ def update_hovermode(mode, fig_json):
     fig.update_layout(hovermode=mode)
     return fig
 
+@app.callback(
+    Output("SocialmediatrustQ1", "figure"), 
+    [Input("hovermode_g12", "value")], 
+    [State('SocialmediatrustQ1', 'figure')])
+def update_hovermode(mode, fig_json):
+    fig = go.Figure(fig_json)
+    fig.update_layout(hovermode=mode)
+    return fig
 
+@app.callback(
+    Output("Politics", "figure"), 
+    [Input("hovermode_g13", "value")], 
+    [State('Politics', 'figure')])
+def update_hovermode(mode, fig_json):
+    fig = go.Figure(fig_json)
+    fig.update_layout(hovermode=mode)
+    return fig
 
 
 if __name__ == '__main__':
