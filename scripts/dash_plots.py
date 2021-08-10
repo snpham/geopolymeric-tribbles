@@ -218,22 +218,18 @@ numerical_dataset = pd.read_csv('outputs/numerical_dataset.csv')
 num1_stats = px.box(numerical_dataset, x="Residency", y="Num1", notched=True, points='all')
 num1_stats.add_shape(type='line', x0='AU',y0=0.25,x1='US',y1=0.25,
                 line=dict(color='Red',), xref='x', yref='y')
-# num1_stats.write_image("outputs/plots/num1_stats.pdf")
 # num1_stats.show()
 num2_stats = px.box(numerical_dataset, x="Residency", y="Num2a", notched=True, points='all')
 num2_stats.add_shape(type='line', x0='AU',y0=0.6,x1='US',y1=0.6,
                 line=dict(color='Red',), xref='x', yref='y')
-num2_stats.write_image("outputs/plots/num2a_stats.pdf")
 # num2_stats.show()
 num3_stats = px.box(numerical_dataset, x="Residency", y="Num2b", notched=True, points='all')
 num3_stats.add_shape(type='line', x0='AU',y0=0.285714,x1='US',y1=0.285714,
                 line=dict(color='Red',), xref='x', yref='y')
-num3_stats.write_image("outputs/plots/num2b_stats.pdf")
 # num3_stats.show()
 num4_stats = px.box(numerical_dataset[numerical_dataset['Num3'] <= 1], x="Residency", y="Num3", notched=True, points='all')
 num4_stats.add_shape(type='line', x0='AU',y0=0.5,x1='US',y1=0.5,
                 line=dict(color='Red',), xref='x', yref='y')
-num4_stats.write_image("outputs/plots/num3_stats.pdf")
 # num4_stats.show()
 
 
@@ -249,3 +245,10 @@ if savefigs:
     bayes_vaccine_global.write_image("outputs/plots/bayes_vaccine_global.pdf")
     naive_bayesian_vaccine_age_global.write_image("outputs/plots/naive_bayesian_vaccine_age_global.pdf")
     naive_bayesian_canadaq1_age_global.write_image("outputs/plots/naive_bayesian_canadaq1_age_global.pdf")
+    num1_stats.write_image("outputs/plots/num1_stats.pdf")
+    num2_stats.write_image("outputs/plots/num2a_stats.pdf")
+    num3_stats.write_image("outputs/plots/num2b_stats.pdf")
+    num4_stats.write_image("outputs/plots/num3_stats.pdf")
+
+
+
