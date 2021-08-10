@@ -41,3 +41,5 @@
 #### Part 1 - Project slides: https://drive.google.com/file/d/1A4uMKOTzQ7iFeEN4r5OOof3cL4MyGWYR/view?usp=sharing
 
 #### ACM template cloned from https://github.com/conference-websites/acmart-sigproc-template.git
+
+#### Part 6 - Final Presentation slides:https://docs.google.com/presentation/d/1mjekrxjd9Wr-CWNzsuSv-KJ6jNtocu9y0N3suPvQYn8/edit?usp=sharing
