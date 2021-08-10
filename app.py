@@ -6,122 +6,7 @@ import pandas as pd
 import plotly.express as px
 from scripts.frequents import apriori
 from dash.dependencies import Input, Output, State
-
-
-## project - frequent itemsets
-dataset = pd.read_csv(r'https://raw.githubusercontent.com/summeryriddles/geopolymeric-tribbles/main/study_data/integrated_data_v3.csv', 
-                      index_col=0, header=0)
-dataset_prep = dataset[['prep']].dropna()
-dataset_prep = dataset_prep[~dataset_prep.prep.str.contains("E+")]
-dataset_country = dataset[['Residency','prep']].dropna()
-dataset_country = dataset_country[~dataset_country.prep.str.contains("E+")]
-
-df_meta = pd.read_csv(r'https://raw.githubusercontent.com/summeryriddles/geopolymeric-tribbles/main/study_data/metadata.csv', index_col=0, 
-                        header=None, usecols=range(1,4), encoding='latin1')
-
-colors = {
-    'background': '#3D405B',
-    'text': '#fbfbfc'
-}
-
-## table of preparation activities
-prep_dict = {}
-for val in df_meta.loc['prep', 3].strip().split(','):
-    val = val.split('=')
-    prep_dict[val[0].strip()] = val[1].strip()
-df_meta_desc = pd.DataFrame.from_dict(prep_dict, orient='index', 
-                                      columns=['Description'])
-activity_table = go.Figure(data=[go.Table(columnwidth=[1, 4],
-                           header=dict(values=['Activity', 'Description']),
-                           cells=dict(values=[list(prep_dict.keys()),
-                                              list(prep_dict.values())]))])
-activity_table.update_layout(plot_bgcolor=colors['background'],
-                             paper_bgcolor=colors['background'])
-# activity_table.write_image("outputs/plots/table.pdf")
-
-
-## graph 1 ##
-# get all countries with frequent-set 1
-countries = ['US', 'CN', 'AU', 'DE', 'ES', 'IT', 'JP', 'KR', 'MX', 'UK', 'SE']
-df_countries = []
-minsup_countries = []
-scans1_countries = []
-scans2_countries = []
-scans3_countries = []
-gobars = []
-min_sup = 0.01
-for ii, country in enumerate(countries):
-    df_country = dataset_country[dataset_country['Residency'] == country]
-    minsup_country = min_sup * len(df_country)
-    df_country = df_country.drop('Residency', axis=1)
-    scans1_country, _, _ = apriori(df_country, minsup_country)
-    scans1_country = {key:value/len(df_country) for (key, value) in scans1_country.items()}
-    gobars.append(go.Bar(name=country, x=list(scans1_country.keys()), 
-                         y=list(scans1_country.values()), base=0))
-Support_AllCountries = go.Figure(data=gobars[:])
-Support_AllCountries.update_layout(title=f'Support of Preparation Activities, by Country <br>'
-                                         f'          - frequentset-1. min support: {min_sup}')
-# Change the bar mode
-Support_AllCountries.update_layout(barmode='relative', 
-    xaxis=dict(title='activity',titlefont_size=16,tickfont_size=14),
-    yaxis=dict(title='support',titlefont_size=16,tickfont_size=14),
-    plot_bgcolor=colors['background'], paper_bgcolor=colors['background'],
-    font_color=colors['text'], hovermode="x unified")
-
-
-## graph 2 ##
-update_layout = dict(barmode='group',
-                    yaxis=dict( titlefont_size=16, tickfont_size=16, range=[0, 1]),
-                    xaxis=dict( tickangle=-45, titlefont_size=16, tickfont_size=16),
-                    plot_bgcolor=colors['background'],paper_bgcolor=colors['background'],
-                    font_color=colors['text'], hovermode="x unified",
-                    hoverlabel=dict(font_size=14))
-update_traces = dict(marker_color='#a0a4c0', marker_line_color='#52567A',
-                    marker_line_width=1.5, opacity=0.7)
-
-# get global frequentset-1
-min_sup = 0.01
-min_sup *= len(dataset_prep)
-scan1, scan2, scan3 = apriori(dataset_prep, min_sup)
-prep_merged = {key:value/len(dataset_prep) for (key, value) in scan1.items()}
-prep_merged = pd.DataFrame.from_dict(prep_merged, orient='index', 
-                                     columns=['support'])
-freqset_1 = px.bar(prep_merged, y='support', x=prep_merged.index, 
-                   labels={'index': 'activity'})
-freqset_1.update_layout(title=f'Support of Preparation Activities by Country <br>'
-                f'          - frequentset-1. min support: {min_sup/len(dataset_prep)}')
-freqset_1.update_traces(update_traces)
-freqset_1.update_layout(update_layout)
-
-
-## graph 3 ##
-# increase support and view higher frequentsets (2 and 3)
-min_sup = 0.5
-min_sup *= len(dataset_prep)
-scan1, scan2, scan3 = apriori(dataset_prep, min_sup)
-prep2 =  {key:value/len(dataset_prep) for (key, value) in scan2.items()}
-prep2_supp = pd.DataFrame.from_dict(prep2, orient='index', 
-                                    columns=['support'])
-freqset_2 = px.bar(prep2_supp, x=prep2_supp.index, y='support', 
-                   labels={'index': 'activities'})
-freqset_2.update_traces(update_traces)
-freqset_2.update_layout(update_layout)
-freqset_2.update_layout(dict(yaxis=dict(range=[0.4, 0.9])))
-freqset_2.update_layout(title=f'Support of Preparation Activities, Global <br>'
-                f'          - frequentset-2. min support: {min_sup/len(dataset_prep)}')
-
-
-## graph 4 ##
-prep3 =  {key:value/len(dataset_prep) for (key, value) in scan3.items()}
-prep3_supp = pd.DataFrame.from_dict(prep3, orient='index', 
-                                    columns=['support'])
-freqset_3 = px.bar(prep3_supp, x=prep3_supp.index, y='support', 
-                  labels={'index': 'activities'})
-freqset_3.update_traces(update_traces)
-freqset_3.update_layout(update_layout)
-freqset_3.update_layout(dict(yaxis=dict(range=[0.4, 0.9])))
-freqset_3.update_layout(title=f'Support of Preparation Activities, Global <br>'
-                f'          - frequentset-3. min support: {min_sup/len(dataset_prep)}')
+from scripts.dash_plots import *
 
 
 ########### Initiate the app
@@ -229,6 +114,151 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                     ], className="six columns"),
                 ], className="row"),
         html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 5 description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                html.P("Graph 5 Hovermode", style={'color': colors['text']}),
+                dcc.RadioItems(
+                    id='hovermode_g5', style={'color': colors['text']},
+                    labelStyle={'display': 'inline-block'},
+                    options=[{'label': x, 'value': x} 
+                            for x in ['x', 'x unified', 'closest']],
+                    value='x unified'),
+                dcc.Graph(
+                    id='bayes_vaccine_global',
+                    figure=bayes_vaccine_global,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 6 description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                html.P("Graph 6 Hovermode", style={'color': colors['text']}),
+                dcc.RadioItems(
+                    id='hovermode_g6', style={'color': colors['text']},
+                    labelStyle={'display': 'inline-block'},
+                    options=[{'label': x, 'value': x} 
+                            for x in ['x', 'x unified', 'closest']],
+                    value='x unified'),
+                dcc.Graph(
+                    id='naive_bayesian_vaccine_age_global',
+                    figure=naive_bayesian_vaccine_age_global,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 7 description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                html.P("Graph 7 Hovermode", style={'color': colors['text']}),
+                dcc.RadioItems(
+                    id='hovermode_g7', style={'color': colors['text']},
+                    labelStyle={'display': 'inline-block'},
+                    options=[{'label': x, 'value': x} 
+                            for x in ['x', 'x unified', 'closest']],
+                    value='x unified'),
+                dcc.Graph(
+                    id='naive_bayesian_canadaq1_age_global',
+                    figure=naive_bayesian_canadaq1_age_global,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+
+        ## numerical plots
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 8 description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                html.P("Graph 8 Hovermode", style={'color': colors['text']}),
+                dcc.RadioItems(
+                    id='hovermode_g8', style={'color': colors['text']},
+                    labelStyle={'display': 'inline-block'},
+                    options=[{'label': x, 'value': x} 
+                            for x in ['x', 'x unified', 'closest']],
+                    value='x unified'),
+                dcc.Graph(
+                    id='num1_stats',
+                    figure=num1_stats,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 9 description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                html.P("Graph 9 Hovermode", style={'color': colors['text']}),
+                dcc.RadioItems(
+                    id='hovermode_g9', style={'color': colors['text']},
+                    labelStyle={'display': 'inline-block'},
+                    options=[{'label': x, 'value': x} 
+                            for x in ['x', 'x unified', 'closest']],
+                    value='x unified'),
+                dcc.Graph(
+                    id='num2_stats',
+                    figure=num2_stats,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 10 description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                html.P("Graph 10 Hovermode", style={'color': colors['text']}),
+                dcc.RadioItems(
+                    id='hovermode_g10', style={'color': colors['text']},
+                    labelStyle={'display': 'inline-block'},
+                    options=[{'label': x, 'value': x} 
+                            for x in ['x', 'x unified', 'closest']],
+                    value='x unified'),
+                dcc.Graph(
+                    id='num3_stats',
+                    figure=num3_stats,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 11 description', style={'color': colors['text']}),
+            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                html.P("Graph 11 Hovermode", style={'color': colors['text']}),
+                dcc.RadioItems(
+                    id='hovermode_g11', style={'color': colors['text']},
+                    labelStyle={'display': 'inline-block'},
+                    options=[{'label': x, 'value': x} 
+                            for x in ['x', 'x unified', 'closest']],
+                    value='x unified'),
+                dcc.Graph(
+                    id='num4_stats',
+                    figure=num4_stats,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+
+
+
+        html.Div([
             html.A('Project Code on Github', 
                 href='https://github.com/summeryriddles/geopolymeric-tribbles'),
             html.Br(),])
@@ -271,6 +301,70 @@ def update_hovermode(mode, fig_json):
     fig = go.Figure(fig_json)
     fig.update_layout(hovermode=mode)
     return fig
+
+@app.callback(
+    Output("bayes_vaccine_global", "figure"), 
+    [Input("hovermode_g5", "value")], 
+    [State('bayes_vaccine_global', 'figure')])
+def update_hovermode(mode, fig_json):
+    fig = go.Figure(fig_json)
+    fig.update_layout(hovermode=mode)
+    return fig
+
+@app.callback(
+    Output("naive_bayesian_vaccine_age_global", "figure"), 
+    [Input("hovermode_g6", "value")], 
+    [State('naive_bayesian_vaccine_age_global', 'figure')])
+def update_hovermode(mode, fig_json):
+    fig = go.Figure(fig_json)
+    fig.update_layout(hovermode=mode)
+    return fig
+
+@app.callback(
+    Output("naive_bayesian_canadaq1_age_global", "figure"), 
+    [Input("hovermode_g7", "value")], 
+    [State('naive_bayesian_canadaq1_age_global', 'figure')])
+def update_hovermode(mode, fig_json):
+    fig = go.Figure(fig_json)
+    fig.update_layout(hovermode=mode)
+    return fig
+
+@app.callback(
+    Output("num1_stats", "figure"), 
+    [Input("hovermode_g8", "value")], 
+    [State('num1_stats', 'figure')])
+def update_hovermode(mode, fig_json):
+    fig = go.Figure(fig_json)
+    fig.update_layout(hovermode=mode)
+    return fig
+
+@app.callback(
+    Output("num2_stats", "figure"), 
+    [Input("hovermode_g9", "value")], 
+    [State('num2_stats', 'figure')])
+def update_hovermode(mode, fig_json):
+    fig = go.Figure(fig_json)
+    fig.update_layout(hovermode=mode)
+    return fig
+
+@app.callback(
+    Output("num3_stats", "figure"), 
+    [Input("hovermode_g10", "value")], 
+    [State('num3_stats', 'figure')])
+def update_hovermode(mode, fig_json):
+    fig = go.Figure(fig_json)
+    fig.update_layout(hovermode=mode)
+    return fig
+
+@app.callback(
+    Output("num4_stats", "figure"), 
+    [Input("hovermode_g11", "value")], 
+    [State('num4_stats', 'figure')])
+def update_hovermode(mode, fig_json):
+    fig = go.Figure(fig_json)
+    fig.update_layout(hovermode=mode)
+    return fig
+
 
 
 
