@@ -66,20 +66,12 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
         # apriori
         html.Div([
             html.Div([
-                html.H3('Column 1', style={'color': colors['text']}),
-                html.P('Table description', style={'color': colors['text']}),
-            ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
-            html.Div([
+                html.H3('Preparation Activities Table', style={'color': colors['text']}),
+                html.P('Plot 2 description', style={'color': colors['text']}),
                 dcc.Graph(
                 id='activity_table',
                 figure=activity_table,
                 ),
-                    ], className="six columns"),
-                ], className="row"),
-        html.Div([
-            html.Div([
-                html.H3('Column 1', style={'color': colors['text']}),
-                html.P('Plot 1 description', style={'color': colors['text']}),
             ], className="six columns", style={'display': 'inline-block', 'width': '50vh', 'height': '30vh'}),
             html.Div([
                 html.H3('Column 2', style={'color': colors['text']}),

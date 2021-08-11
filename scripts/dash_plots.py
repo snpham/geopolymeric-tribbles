@@ -43,12 +43,12 @@ else:
 
 if savefigs:
     update_layout_colorful = dict(barmode='relative', 
-        xaxis=dict(title='activity',titlefont_size=16,tickfont_size=14),
+        xaxis=dict(title='activity',titlefont_size=16,tickfont_size=14, type='category'),
         yaxis=dict(title='support',titlefont_size=16,tickfont_size=14),
         hovermode="x unified")
 else:
     update_layout_colorful = dict(barmode='relative', 
-        xaxis=dict(title='activity',titlefont_size=16,tickfont_size=14),
+        xaxis=dict(title='activity',titlefont_size=16,tickfont_size=14, type='category'),
         yaxis=dict(title='support',titlefont_size=16,tickfont_size=14),
         plot_bgcolor=colors['background'], paper_bgcolor=colors['background'],
         font_color=colors['text'], hovermode="x unified")
@@ -64,11 +64,20 @@ scans2_countries = []
 scans3_countries = []
 gobars = []
 min_sup = 0.01
+count3 = 0
 for ii, country in enumerate(countries):
     df_country = dataset_country[dataset_country['Residency'] == country]
     minsup_country = min_sup * len(df_country)
     df_country = df_country.drop('Residency', axis=1)
-    scans1_country, _, _ = apriori(df_country, minsup_country)
+    # scans1_country, _, _ = apriori(df_country, minsup_country)
+    # if count3 == 0:
+    #     dfscan_country = pd.DataFrame(scans1_country.items(), columns=['activity', country])
+    #     count3 +=1
+    # else:
+    #     dfscan_country[country] = scans1_country.values()
+    # dfscan_country.to_csv('outputs/df_freq1_by_countries.csv')
+    scan1 = pd.read_csv('outputs/df_freq1_by_countries.csv')
+    scans1_country = dict(zip(scan1.loc[:,'activity'], scan1.loc[:,country]))
     scans1_country = {key:value/len(df_country) for (key, value) in scans1_country.items()}
     gobars.append(go.Bar(name=country, x=list(scans1_country.keys()), 
                          y=list(scans1_country.values()), base=0))
@@ -78,30 +87,38 @@ Support_AllCountries.update_layout(title=f'Support of Preparation Activities, by
 # Change the bar mode
 Support_AllCountries.update_layout(update_layout_colorful)
 
+# scan1 = pd.read_csv('outputs/df_freq1_by_countries.csv', index_col=0)
+# dfscan_country = scan1.sort_values(by=['activity'], ascending=True)
+# dfscan_country.to_csv('outputs/df_freq1_by_countries.csv')
+
 
 ## graph 2 ##
-
 if savefigs:
     update_layout = dict(barmode='group',
                         yaxis=dict( titlefont_size=16, tickfont_size=16),
-                        xaxis=dict( tickangle=-45, titlefont_size=16, tickfont_size=16),
+                        xaxis=dict( tickangle=-45, titlefont_size=16, tickfont_size=16, type='category'),
                         hoverlabel=dict(font_size=14))
     update_traces = dict(marker_line_width=1.5, opacity=0.7)
 else:
     update_layout = dict(barmode='group',
                 yaxis=dict( titlefont_size=16, tickfont_size=16),
-                xaxis=dict( tickangle=-45, titlefont_size=16, tickfont_size=16),
+                xaxis=dict( tickangle=-45, titlefont_size=16, tickfont_size=16, type='category'),
                 plot_bgcolor=colors['background'],paper_bgcolor=colors['background'],
                 font_color=colors['text'], hoverlabel=dict(font_size=14))
     update_traces = dict(marker_color='#a0a4c0', marker_line_color='#52567A',
                         marker_line_width=1.5, opacity=0.7)
 
 
-
 # get global frequentset-1
 min_sup = 0.01
 min_sup *= len(dataset_prep)
-scan1, scan2, scan3 = apriori(dataset_prep, min_sup)
+# scan1, _, _ = apriori(dataset_prep, min_sup)
+# df_scan1 = pd.DataFrame(data=scan1.items(), index=None, columns=['activity', 'value']).astype('int')
+# df_scan1 = df_scan1.sort_values(by=['activity'], ascending=True)
+# df_scan1.to_csv('outputs/df_001sup_freq1.csv')
+scan1 = pd.read_csv('outputs/df_001sup_freq1.csv', index_col=0)
+scan1 = dict(zip(scan1.iloc[:,0], scan1.iloc[:,1]))
+
 prep_merged = {key:value/len(dataset_prep) for (key, value) in scan1.items()}
 prep_merged = pd.DataFrame.from_dict(prep_merged, orient='index', 
                                      columns=['support'])
@@ -118,7 +135,16 @@ freqset_1.update_layout(update_layout)
 # increase support and view higher frequentsets (2 and 3)
 min_sup = 0.5
 min_sup *= len(dataset_prep)
-scan1, scan2, scan3 = apriori(dataset_prep, min_sup)
+# _, scan2, scan3 = apriori(dataset_prep, min_sup)
+# df_scan2 = pd.DataFrame(data=scan2.values(), index=scan2.keys())
+# df_scan3 = pd.DataFrame(data=scan3.values(), index=scan3.keys())
+# df_scan2.to_csv('outputs/df_05sup_freq2.csv')
+# df_scan3.to_csv('outputs/df_05sup_freq3.csv')
+scan2 = pd.read_csv('outputs/df_05sup_freq2.csv')
+scan3 = pd.read_csv('outputs/df_05sup_freq3.csv')
+scan2 = dict(zip(scan2.iloc[:,0], scan2.iloc[:,1]))
+scan3 = dict(zip(scan3.iloc[:,0], scan3.iloc[:,1]))
+
 prep2 =  {key:value/len(dataset_prep) for (key, value) in scan2.items()}
 prep2_supp = pd.DataFrame.from_dict(prep2, orient='index', 
                                     columns=['support'])
