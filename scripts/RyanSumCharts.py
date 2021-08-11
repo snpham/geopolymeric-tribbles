@@ -7,7 +7,11 @@ import plotly.graph_objects as go
 import plotly.express as px
 import plotly.io as pio
 
-firstDF = DF("integrated_dataNew.csv")
+firstDF = pd.read_csv('outputs/integrated_dataNew.csv', dtype=str)
+colors = {
+    'background': '#3D405B',
+    'text': '#fbfbfc'
+}
 
 def scrubDF(df, keepList):
     df = df.drop(index=[0, 1, 2, 3])
@@ -28,8 +32,10 @@ def graphCount(uncleandf, xAxis, yAxis, xName, yName, graphTitle):
     newDF["Count"] = pd.to_numeric(newDF["Count"])
 
     fig = px.bar(newDF, x = xName, y = "Count", color=yName, title = graphTitle)
-    fig.show()
-    return newDF
+    fig.update_layout(plot_bgcolor=colors['background'], paper_bgcolor=colors['background'],
+        font_color=colors['text'])
+    # fig.show()
+    return fig
        
 plot1 = graphCount(firstDF, 'Residency', 'Politics', "Country", "Political Leaning (1-Conservative, 7-Liberal)", "Political Leaning by Country")
 plot2 = graphCount(firstDF, 'Politics', 'Residency', "Political Leaning (1-Conservative, 7-Liberal)", "Country", "Political Leaning Breakdown")

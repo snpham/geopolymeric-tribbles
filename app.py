@@ -5,7 +5,7 @@ import plotly.graph_objs as go
 from dash.dependencies import Input, Output, State
 from scripts.dash_plots import *
 from scripts.Kmeans_plots import *
-# from scripts.RyanSumCharts import *
+from scripts.RyanSumCharts import *
 
 
 Trustingroups = ['Trustingroups_1', 'Trustingroups_2', 'Trustingroups_3', 'Trustingroups_4', 'Trustingroups_5',
@@ -25,42 +25,66 @@ app.title='COVID-19 Misinformation Project'
 app.layout = html.Div(style={'backgroundColor': colors['background']}, 
     children=[
         html.H1('CSCI-5502 Project', style={'color': colors['text']}),
-        html.Div([html.Br(),html.Br(),html.Br(),html.Br(),html.Br()]),
+        html.Div([html.Br(),html.Br(),html.Br(),html.Br()]),
 
         # ## ryan's exploratory stats
-        # html.Div([
-        #     html.Div([
-        #         html.H3('Column 1', style={'color': colors['text']}),
-        #         html.P('Plot 1 description', style={'color': colors['text']}),
-        #     ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
-        #     html.Div([
-        #         html.H3('Column 2', style={'color': colors['text']}),
-        #         dcc.Graph(
-        #             id='plot1',
-        #             figure=plot1,
-        #             ),
-        #             ], className="six columns"),
-        #         ], className="row"),
-        # html.H1('CSCI-5502 Project', style={'color': colors['text']}),
-        # html.Div([
-        #     html.Div([
-        #         html.H3('Column 1', style={'color': colors['text']}),
-        #         html.P('Plot 2 description', style={'color': colors['text']}),
-        #     ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
-        #     html.Div([
-        #         html.H3('Column 2', style={'color': colors['text']}),
-        #         dcc.Graph(
-        #             id='firstDF',
-        #             figure=firstDF,
-        #             ),
-        #             ], className="six columns"),
-        #         ], className="row"),
-
+        html.Div([
+            html.Div([
+                html.H3('Exploratory Statistics', style={'color': colors['text']}),
+                html.P(' ', style={'color': colors['text']}),
+            ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Exploratory Statistics - Political Leaning', style={'color': colors['text']}),
+                dcc.Graph(
+                    id='plot1',
+                    figure=plot1,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Exploratory Statistics', style={'color': colors['text']}),
+                html.P(' ', style={'color': colors['text']}),
+            ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Exploratory Statistics - Political Leaning Breakdown', style={'color': colors['text']}),
+                dcc.Graph(
+                    id='plot2',
+                    figure=plot2,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Exploratory Statistics', style={'color': colors['text']}),
+                html.P(' ', style={'color': colors['text']}),
+            ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Exploratory Statistics - Severity of COVID', style={'color': colors['text']}),
+                dcc.Graph(
+                    id='plot3',
+                    figure=plot3,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Exploratory Statistics', style={'color': colors['text']}),
+                html.P(' ', style={'color': colors['text']}),
+            ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Exploratory Statistics - Worry about COVID', style={'color': colors['text']}),
+                dcc.Graph(
+                    id='plot4',
+                    figure=plot4,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
 
         ## numerical plots
         html.Div([
             html.Div([
-                html.H3('Numerical Descriptions', style={'color': colors['text']}),
+                html.H3('Exploratory Statistics - Numerical', style={'color': colors['text']}),
                 html.P(['Num1: Out of 1,000 people in a small town 500 are members of a choir.'
                        ' Out of these 500 members in the choir 100 are men.'
                        ' Out of the 500 inhabitants that are not in the choir 300 are men.'
@@ -85,7 +109,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                 ], style={'color': colors['text']}),
             ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
             html.Div([
-                html.H3('Numerical Plots', style={'color': colors['text']}),
+                html.H3('Exploratory Statistics - Numerical', style={'color': colors['text']}),
                 html.P('Select a Numerical Attribute to View Statistical Parameters', style={'color': colors['text']}),
                 dcc.RadioItems(
                     id='numeric_radio', 
@@ -104,15 +128,15 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
         # apriori
         html.Div([
             html.Div([
-                html.H3('Preparation Activities Table', style={'color': colors['text']}),
-                html.P(' ', style={'color': colors['text']}),
+                html.H3('Apriori Analysis', style={'color': colors['text']}),
+                html.P('Preparation Activities Table', style={'color': colors['text']}),
                 dcc.Graph(
                 id='activity_table',
                 figure=activity_table,
                 ),
             ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
             html.Div([
-                html.H3('Preparation Support by Country', style={'color': colors['text']}),
+                html.H3('Apriori Analysis - Preparation Support by Country', style={'color': colors['text']}),
                 html.P("Select Graph 1 Hovermode", style={'color': colors['text']}),
                 dcc.RadioItems(
                     id='hovermode_g1', style={'color': colors['text']},
@@ -129,11 +153,11 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
         # frequent-1/2/3 apriori with slider
         html.Div([
             html.Div([
-                html.H3('Global Frequent-1/2/3 Itemsets', style={'color': colors['text']}),
-                html.P(' ', style={'color': colors['text']}),
+                html.H3('Apriori Analysis', style={'color': colors['text']}),
+                html.P('Global Frequent-1/2/3 Itemsets', style={'color': colors['text']}),
             ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
             html.Div([
-                html.H3('Global Frequent-1/2/3 Graph', style={'color': colors['text']}),
+                html.H3('Apriori Analysis - Global Frequent-1/2/3 Graph', style={'color': colors['text']}),
                 html.P('Select a Support Level', style={'color': colors['text']}),
                 dcc.Slider(
                     id='apriori_sup2_slider',
@@ -159,7 +183,8 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
         # bayesian
         html.Div([
             html.Div([
-                html.H3('Information Gain Table', style={'color': colors['text']}),
+                html.H3('Decision Tree Analysis', style={'color': colors['text']}),
+                html.P('Information Gain Table', style={'color': colors['text']}),
                 html.P('Six highest and six lowest information gain', style={'color': colors['text']}),
                 dcc.Graph(
                 id='gain_table',
@@ -167,7 +192,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                 ),
             ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
             html.Div([
-                html.H3('Probability of Vaccination and Recommendation', style={'color': colors['text']}),
+                html.H3('Decision Tree - Probability of Vaccination and Recommendation', style={'color': colors['text']}),
                 html.P("Graph 5 Hovermode", style={'color': colors['text']}),
                 dcc.RadioItems(
                     id='hovermode_g5', style={'color': colors['text']},
@@ -183,7 +208,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                 ], className="row"),
         html.Div([
             html.Div([
-                html.H3('Naive Bayesian Analysis', style={'color': colors['text']}),
+                html.H3('Naive Bayesian Analysis - VaccineQ1, Q2', style={'color': colors['text']}),
                 html.P(' ', style={'color': colors['text']}),
             ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
             html.Div([
@@ -203,11 +228,11 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                 ], className="row"),
         html.Div([
             html.Div([
-                html.H3('Naive Bayesian Analysis 2', style={'color': colors['text']}),
+                html.H3('Naive Bayesian Analysis', style={'color': colors['text']}),
                 html.P(' ', style={'color': colors['text']}),
             ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
             html.Div([
-                html.H3('Naive Bayesian Analysis 2', style={'color': colors['text']}),
+                html.H3('Naive Bayesian Analysis - CanadaQ1', style={'color': colors['text']}),
                 html.P("Graph 7 Hovermode", style={'color': colors['text']}),
                 dcc.RadioItems(
                     id='hovermode_g7', style={'color': colors['text']},
@@ -227,7 +252,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
         ## reiko's clustering
         html.Div([
             html.Div([
-                html.H3('Clustering Classification', style={'color': colors['text']}),
+                html.H3('Clustering - DBSCAN', style={'color': colors['text']}),
                 html.P(' ', style={'color': colors['text']}),
             ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
             html.Div([
@@ -240,7 +265,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                 ], className="row"),
         html.Div([
             html.Div([
-                html.H3('Clustering Classification', style={'color': colors['text']}),
+                html.H3('Clustering - DBSCAN', style={'color': colors['text']}),
                 html.P(' ', style={'color': colors['text']}),
             ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
             html.Div([
@@ -257,11 +282,11 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
         # kyle's clusters
         html.Div([
             html.Div([
-                html.H3('K-Means Clustering', style={'color': colors['text']}),
+                html.H3('Clustering - K-Means', style={'color': colors['text']}),
                 html.P(' ', style={'color': colors['text']}),
             ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
             html.Div([
-                html.H3('K-Means Clustering - Who vs Trust, All Groups', style={'color': colors['text']}),
+                html.H3('Clustering - K-Means: Who vs Trust, All Groups', style={'color': colors['text']}),
                 dcc.Graph(
                     id='WHOvTrustTot',
                     figure=WHOvTrustTot,
@@ -270,11 +295,11 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                 ], className="row"),
         html.Div([
             html.Div([
-                html.H3('K-Means Clustering', style={'color': colors['text']}),
+                html.H3('Clustering - K-Means', style={'color': colors['text']}),
                 html.P(' ', style={'color': colors['text']}),
             ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
             html.Div([
-                html.H3('K-Means Clustering - Who vs Trust, Government', style={'color': colors['text']}),
+                html.H3('Clustering - K-Means: Who vs Trust, Government', style={'color': colors['text']}),
                 dcc.Graph(
                     id='WHOvTrustGov',
                     figure=WHOvTrustGov,
@@ -283,11 +308,11 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                 ], className="row"),
         html.Div([
             html.Div([
-                html.H3('K-Means Clustering', style={'color': colors['text']}),
+                html.H3('Clustering - K-Means', style={'color': colors['text']}),
                 html.P(' ', style={'color': colors['text']}),
             ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
             html.Div([
-                html.H3('K-Means Clustering - COVID Estimates vs. Trust, All Groups', style={'color': colors['text']}),
+                html.H3('Clustering - K-Means: COVID Estimates vs. Trust, All Groups', style={'color': colors['text']}),
                 dcc.Graph(
                     id='EstimatesvTrustTot',
                     figure=EstimatesvTrustTot,
@@ -296,11 +321,11 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                 ], className="row"),
         html.Div([
             html.Div([
-                html.H3('K-Means Clustering', style={'color': colors['text']}),
+                html.H3('Clustering - K-Means', style={'color': colors['text']}),
                 html.P(' ', style={'color': colors['text']}),
             ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
             html.Div([
-                html.H3('K-Means Clustering - COVID Worry vs. Affected', style={'color': colors['text']}),
+                html.H3('Clustering - K-Means: COVID Worry vs. Affected', style={'color': colors['text']}),
                 dcc.Graph(
                     id='WorryvAffected',
                     figure=WorryvAffected,
@@ -309,11 +334,11 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                 ], className="row"),
         html.Div([
             html.Div([
-                html.H3('K-Means Clustering', style={'color': colors['text']}),
+                html.H3('Clustering - K-Means', style={'color': colors['text']}),
                 html.P(' ', style={'color': colors['text']}),
             ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
             html.Div([
-                html.H3('K-Means Clustering - Social Media Use vs. Affected', style={'color': colors['text']}),
+                html.H3('Clustering - K-Means: Social Media Use vs. Affected', style={'color': colors['text']}),
                 dcc.Graph(
                     id='SocialvAffected',
                     figure=SocialvAffected,
