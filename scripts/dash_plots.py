@@ -5,7 +5,7 @@ from scripts.frequents import apriori
 from scripts.DBSCAN_plots import *
 
 savefigs = False
-
+run_plots = False
 
 ## project - frequent itemsets
 dataset = pd.read_csv(r'https://raw.githubusercontent.com/summeryriddles/geopolymeric-tribbles/main/study_data/integrated_data_v3.csv', 
@@ -91,7 +91,6 @@ Support_AllCountries.update_layout(update_layout_colorful)
 # dfscan_country = scan1.sort_values(by=['activity'], ascending=True)
 # dfscan_country.to_csv('outputs/df_freq1_by_countries.csv')
 
-
 ## graph 2 ##
 if savefigs:
     update_layout = dict(barmode='group',
@@ -108,66 +107,67 @@ else:
     update_traces = dict(marker_color='#a0a4c0', marker_line_color='#52567A',
                         marker_line_width=1.5, opacity=0.7)
 
+if run_plots:
+    
+    # get global frequentset-1
+    min_sup = 0.01
+    min_sup *= len(dataset_prep)
+    # scan1, _, _ = apriori(dataset_prep, min_sup)
+    # df_scan1 = pd.DataFrame(data=scan1.items(), index=None, columns=['activity', 'value']).astype('int')
+    # df_scan1 = df_scan1.sort_values(by=['activity'], ascending=True)
+    # df_scan1.to_csv('outputs/df_001sup_freq1.csv')
+    scan1 = pd.read_csv('outputs/df_001sup_freq1.csv', index_col=0)
+    scan1 = dict(zip(scan1.iloc[:,0], scan1.iloc[:,1]))
 
-# get global frequentset-1
-min_sup = 0.01
-min_sup *= len(dataset_prep)
-# scan1, _, _ = apriori(dataset_prep, min_sup)
-# df_scan1 = pd.DataFrame(data=scan1.items(), index=None, columns=['activity', 'value']).astype('int')
-# df_scan1 = df_scan1.sort_values(by=['activity'], ascending=True)
-# df_scan1.to_csv('outputs/df_001sup_freq1.csv')
-scan1 = pd.read_csv('outputs/df_001sup_freq1.csv', index_col=0)
-scan1 = dict(zip(scan1.iloc[:,0], scan1.iloc[:,1]))
-
-prep_merged = {key:value/len(dataset_prep) for (key, value) in scan1.items()}
-prep_merged = pd.DataFrame.from_dict(prep_merged, orient='index', 
-                                     columns=['support'])
-freqset_1 = px.bar(prep_merged, y='support', x=prep_merged.index, 
-                   labels={'index': 'activity'})
-freqset_1.update_layout(title=f'Support of Preparation Activities, Global <br>'
-                f'          - frequentset-1. min support: {min_sup/len(dataset_prep)}')
-freqset_1.update_traces(update_traces)
-freqset_1.update_layout(dict(yaxis=dict(range=[0, 1])))
-freqset_1.update_layout(update_layout)
-
-
-## graph 3 ##
-# increase support and view higher frequentsets (2 and 3)
-min_sup = 0.5
-min_sup *= len(dataset_prep)
-# _, scan2, scan3 = apriori(dataset_prep, min_sup)
-# df_scan2 = pd.DataFrame(data=scan2.values(), index=scan2.keys())
-# df_scan3 = pd.DataFrame(data=scan3.values(), index=scan3.keys())
-# df_scan2.to_csv('outputs/df_05sup_freq2.csv')
-# df_scan3.to_csv('outputs/df_05sup_freq3.csv')
-scan2 = pd.read_csv('outputs/df_05sup_freq2.csv')
-scan3 = pd.read_csv('outputs/df_05sup_freq3.csv')
-scan2 = dict(zip(scan2.iloc[:,0], scan2.iloc[:,1]))
-scan3 = dict(zip(scan3.iloc[:,0], scan3.iloc[:,1]))
-
-prep2 =  {key:value/len(dataset_prep) for (key, value) in scan2.items()}
-prep2_supp = pd.DataFrame.from_dict(prep2, orient='index', 
-                                    columns=['support'])
-freqset_2 = px.bar(prep2_supp, x=prep2_supp.index, y='support', 
-                   labels={'index': 'activities'})
-freqset_2.update_traces(update_traces)
-freqset_2.update_layout(update_layout)
-freqset_2.update_layout(dict(yaxis=dict(range=[0.4, 0.9])))
-freqset_2.update_layout(title=f'Support of Preparation Activities, Global <br>'
-                f'          - frequentset-2. min support: {min_sup/len(dataset_prep)}')
+    prep_merged = {key:value/len(dataset_prep) for (key, value) in scan1.items()}
+    prep_merged = pd.DataFrame.from_dict(prep_merged, orient='index', 
+                                        columns=['support'])
+    freqset_1 = px.bar(prep_merged, y='support', x=prep_merged.index, 
+                    labels={'index': 'activity'})
+    freqset_1.update_layout(title=f'Support of Preparation Activities, Global <br>'
+                    f'          - frequentset-1. min support: {min_sup/len(dataset_prep)}')
+    freqset_1.update_traces(update_traces)
+    freqset_1.update_layout(dict(yaxis=dict(range=[0, 1])))
+    freqset_1.update_layout(update_layout)
 
 
-## graph 4 ##
-prep3 =  {key:value/len(dataset_prep) for (key, value) in scan3.items()}
-prep3_supp = pd.DataFrame.from_dict(prep3, orient='index', 
-                                    columns=['support'])
-freqset_3 = px.bar(prep3_supp, x=prep3_supp.index, y='support', 
-                  labels={'index': 'activities'})
-freqset_3.update_traces(update_traces)
-freqset_3.update_layout(update_layout)
-freqset_3.update_layout(dict(yaxis=dict(range=[0.4, 0.9])))
-freqset_3.update_layout(title=f'Support of Preparation Activities, Global <br>'
-                f'          - frequentset-3. min support: {min_sup/len(dataset_prep)}')
+    ## graph 3 ##
+    # increase support and view higher frequentsets (2 and 3)
+    min_sup = 0.5
+    min_sup *= len(dataset_prep)
+    # _, scan2, scan3 = apriori(dataset_prep, min_sup)
+    # df_scan2 = pd.DataFrame(data=scan2.values(), index=scan2.keys())
+    # df_scan3 = pd.DataFrame(data=scan3.values(), index=scan3.keys())
+    # df_scan2.to_csv('outputs/df_05sup_freq2.csv')
+    # df_scan3.to_csv('outputs/df_05sup_freq3.csv')
+    scan2 = pd.read_csv('outputs/df_05sup_freq2.csv')
+    scan3 = pd.read_csv('outputs/df_05sup_freq3.csv')
+    scan2 = dict(zip(scan2.iloc[:,0], scan2.iloc[:,1]))
+    scan3 = dict(zip(scan3.iloc[:,0], scan3.iloc[:,1]))
+
+    prep2 =  {key:value/len(dataset_prep) for (key, value) in scan2.items()}
+    prep2_supp = pd.DataFrame.from_dict(prep2, orient='index', 
+                                        columns=['support'])
+    freqset_2 = px.bar(prep2_supp, x=prep2_supp.index, y='support', 
+                    labels={'index': 'activities'})
+    freqset_2.update_traces(update_traces)
+    freqset_2.update_layout(update_layout)
+    freqset_2.update_layout(dict(yaxis=dict(range=[0.4, 0.9])))
+    freqset_2.update_layout(title=f'Support of Preparation Activities, Global <br>'
+                    f'          - frequentset-2. min support: {min_sup/len(dataset_prep)}')
+
+
+    ## graph 4 ##
+    prep3 =  {key:value/len(dataset_prep) for (key, value) in scan3.items()}
+    prep3_supp = pd.DataFrame.from_dict(prep3, orient='index', 
+                                        columns=['support'])
+    freqset_3 = px.bar(prep3_supp, x=prep3_supp.index, y='support', 
+                    labels={'index': 'activities'})
+    freqset_3.update_traces(update_traces)
+    freqset_3.update_layout(update_layout)
+    freqset_3.update_layout(dict(yaxis=dict(range=[0.4, 0.9])))
+    freqset_3.update_layout(title=f'Support of Preparation Activities, Global <br>'
+                    f'          - frequentset-3. min support: {min_sup/len(dataset_prep)}')
 
 
 ## bayesian classifications
@@ -240,23 +240,25 @@ naive_bayesian_canadaq1_age_global.update_traces(dict(marker_line_width=1.5, opa
 naive_bayesian_canadaq1_age_global.update_layout(update_layout_colorful)
 # naive_bayesian_canadaq1_age_global.show()
 
-numerical_dataset = pd.read_csv('outputs/numerical_dataset.csv')
-num1_stats = px.box(numerical_dataset, x="Residency", y="Num1", notched=True, points='all')
-num1_stats.add_shape(type='line', x0='AU',y0=0.25,x1='US',y1=0.25,
-                line=dict(color='Red',), xref='x', yref='y')
-# num1_stats.show()
-num2_stats = px.box(numerical_dataset, x="Residency", y="Num2a", notched=True, points='all')
-num2_stats.add_shape(type='line', x0='AU',y0=0.6,x1='US',y1=0.6,
-                line=dict(color='Red',), xref='x', yref='y')
-# num2_stats.show()
-num3_stats = px.box(numerical_dataset, x="Residency", y="Num2b", notched=True, points='all')
-num3_stats.add_shape(type='line', x0='AU',y0=0.285714,x1='US',y1=0.285714,
-                line=dict(color='Red',), xref='x', yref='y')
-# num3_stats.show()
-num4_stats = px.box(numerical_dataset[numerical_dataset['Num3'] <= 1], x="Residency", y="Num3", notched=True, points='all')
-num4_stats.add_shape(type='line', x0='AU',y0=0.5,x1='US',y1=0.5,
-                line=dict(color='Red',), xref='x', yref='y')
-# num4_stats.show()
+
+if run_plots:
+    numerical_dataset = pd.read_csv('outputs/numerical_dataset.csv')
+    num1_stats = px.box(numerical_dataset, x="Residency", y="Num1", notched=True, points='all')
+    num1_stats.add_shape(type='line', x0='AU',y0=0.25,x1='US',y1=0.25,
+                    line=dict(color='Red',), xref='x', yref='y')
+    # num1_stats.show()
+    num2_stats = px.box(numerical_dataset, x="Residency", y="Num2a", notched=True, points='all')
+    num2_stats.add_shape(type='line', x0='AU',y0=0.6,x1='US',y1=0.6,
+                    line=dict(color='Red',), xref='x', yref='y')
+    # num2_stats.show()
+    num3_stats = px.box(numerical_dataset, x="Residency", y="Num2b", notched=True, points='all')
+    num3_stats.add_shape(type='line', x0='AU',y0=0.285714,x1='US',y1=0.285714,
+                    line=dict(color='Red',), xref='x', yref='y')
+    # num3_stats.show()
+    num4_stats = px.box(numerical_dataset[numerical_dataset['Num3'] <= 1], x="Residency", y="Num3", notched=True, points='all')
+    num4_stats.add_shape(type='line', x0='AU',y0=0.5,x1='US',y1=0.5,
+                    line=dict(color='Red',), xref='x', yref='y')
+    # num4_stats.show()
 
 
 
