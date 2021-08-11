@@ -1,11 +1,6 @@
-import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-import random
-import sklearn.cluster as skl
-import plotly.graph_objects as go
 import plotly.express as px
-import plotly.io as pio
 
 firstDF = pd.read_csv('outputs/integrated_dataNew.csv', dtype=str)
 colors = {
