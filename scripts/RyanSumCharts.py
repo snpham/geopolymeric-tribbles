@@ -33,3 +33,5 @@ def graphCount(uncleandf, xAxis, yAxis, xName, yName, graphTitle):
        
 plot1 = graphCount(firstDF, 'Residency', 'Politics', "Country", "Political Leaning (1-Conservative, 7-Liberal)", "Political Leaning by Country")
 plot2 = graphCount(firstDF, 'Politics', 'Residency', "Political Leaning (1-Conservative, 7-Liberal)", "Country", "Political Leaning Breakdown")
+plot3 = graphCount(firstDF, 'Politics', 'CanadaQ_1', "Political Affiliation (1-Conservative, 7-Liberal)", "Corona is a Serious Infection (1-Strongly Disagree, 5-Strongly Agree)", "Perceived Severity of Coronavirus by Political Affiliation")
+plot4 = graphCount(firstDF, 'FinitePool_2', 'CanadaQ_1', "Personal Worry about Coronvirus", "Corona is a Serious Infection (1-Strongly Disagree, 5-Strongly Agree)", "Worry about Corona and Perceived Severity")
