@@ -29,7 +29,6 @@ questions = np.array(pd.read_csv('study_data/project_survey_questions.csv'))    
 for i in range(0, len(questions)):
     print (str(i) +  ", Category: " + str(questions[i,0]) + ", Q: " + str(questions[i,1]))               #print the category of each question
     print("----------------------")                                                                      
-    #questions_match = file[questions[i]]
 
 
 def histAttribute(xpts,ypts):
@@ -70,7 +69,7 @@ def k_means(xpts, ypts,init_clust_type):
     # plt.scatter(dfx,dfy, s=sizes, label=(str(questions[xpts,0]) + " and " + (questions[ypts,0])))     #print scatter plot of two attributes along with point sizes corresponding to magnitude of correspondence
 
     if init_clust_type == 0:                                                                            #0 corresponds to random initial clustering
-        cluster_rand_index = np.random.uniform(low=1, high=5, size=10)                                   #the points for the inital clustering method, random
+        cluster_rand_index = np.random.uniform(low=1, high=2, size=10)                                   #the points for the inital clustering method, random
     elif init_clust_type == 1:                                                                          #1 corresponds to linear initial clusters
         cluster_rand_index = [1.1,2.1,3.5,4.1,4.7,1.3,2.2,3.2,4.3,4.8]                                                 #the points for the inital clustering method, linear
     cluster_rand_x = cluster_rand_index[0:5]
@@ -143,54 +142,84 @@ def cluster_process(pts_to_cluster,x_load,y_load):
     
 if __name__ == '__main__':                                                                              #put attributes to compare here
     
+    print("Testing...")
     #histAttribute(20,7)
     
     #"Trust in Family" - very stable results as expected. Limited trust in family was uncommon, 
     # and when present paired with limited trust everywhere
 
-    # for i in range(7,17):
-    #     results = k_means(i,9,0)
-    #     plt.scatter(results[0],results[1], label=("Attribute " + str(i)))
+    for i in range(7,17):
+        results = k_means(i,9,0)
+        plt.scatter(results[0],results[1], label=("Attribute " + str(i)))
 
-    # plt.xlabel("Trust in groups 2-13")
-    # plt.ylabel("Trust in Other language speakers")
-    # plt.show()
+    plt.xlabel("Trust in groups 2-13")
+    plt.ylabel("Trust in Other language speakers")
+    plt.show()
+    
     #"Trust in other language speakers" - had more support as well for lower overall trust values
 
     #"Importance to do things for others" - also very stable results. More support for doing things 
     # for others than expected
 
+    WHO1 = []
     fig = go.Figure()
-    for i in range(7,17):              # <-----------------WHO versus TRUST Section 1------------------
+    for i in range(6,19):              # <-----------------WHO versus TRUST Section 1------------------
         results = k_means(i,68,1)
         fig.add_trace(go.Scatter(x=results[0],y=results[1], mode='markers',
                                 text=questions[i,0], showlegend=False)) # hover text goes here)
         fig.update_layout(title='Information seen from WHO vs. Trust in all Groups',xaxis_title='Overall Trust',yaxis_title='Seen info from WHO? 1=Y, 2=N')
-    df = pd.DataFrame(results)
-    df.to_csv('/outputs/WHOvTrustTot.csv')
+        WHO1.append(results)
+    df_WHO1 = pd.DataFrame(WHO1)
+    df_WHO1.to_csv('outputs/WHOvTrustTot.csv')
     fig.show()
 
+    WHO2 = []
     fig = go.Figure()
-    for i in range(79,82):             # <-----------------WHO versus TRUST GOV section 2------------------
+    for i in range(79,83):             # <-----------------WHO versus TRUST GOV section 2------------------
         results = k_means(i,68,1)
         fig.add_trace(go.Scatter(x=results[0],y=results[1], mode='markers',
                                 text=questions[i,0], showlegend=False)) # hover text goes here)
         fig.update_layout(title='Information seen from WHO vs. Trust in Government',xaxis_title='Overall Gov. Trust',yaxis_title='Seen info from WHO? 1=Y, 2=N')
-    df = pd.DataFrame(results)
-    df.to_csv('/outputs/WHOvTrustGov.csv')
+        WHO2.append(results)
+    df_WHO2 = pd.DataFrame(WHO2)
+    df_WHO2.to_csv('outputs/WHOvTrustGov.csv')
     fig.show()
 
+    EST1 = []
     fig = go.Figure()
-    for i in range(7,17):                # <--------------Estimates versus TRUST Section 1------------------
+    for i in range(6,19):                # <--------------Estimates versus TRUST Section 1------------------
         results = k_means(i,92,0)
         fig.add_trace(go.Scatter(x=results[0],y=results[1], mode='markers',
                                 text=questions[i,0], showlegend=False)) # hover text goes here)
         fig.update_layout(title='Certainty of Worldwide COVID Estimates vs. Trust in all Groups',xaxis_title='Overall Trust',yaxis_title='Belief in Estimates')
-    df = pd.DataFrame(results)
-    df.to_csv('/outputs/EstimatesvTrustTot.csv')
+        EST1.append(results)
+    df_EST1 = pd.DataFrame(EST1)
+    df_EST1.to_csv('outputs/EstimatesvTrustTot.csv')
     fig.show()
 
-#first classifier - those who lack in trust in general also lack trust in family?
+    AFF1 = []
+    fig = go.Figure()
+    for i in range(20,24):                # <--------------Worry versus Affected level------------------
+        results = k_means(i,36,1)
+        fig.add_trace(go.Scatter(x=results[0],y=results[1], mode='markers',
+                                text=questions[i,0], showlegend=False)) # hover text goes here)
+        fig.update_layout(title='Worry about COVID vs. Affected from COVID',xaxis_title='Overall Affected Level',yaxis_title='Worry Level')
+        AFF1.append(results)
+    df_AFF1 = pd.DataFrame(AFF1)
+    df_AFF1.to_csv('outputs/WorryvAffected.csv')
+    fig.show()
+
+    MED1 = []
+    fig = go.Figure()
+    for i in range(20,24):                # <--------------Social Media versus Affected level------------------
+        results = k_means(i,63,1)
+        fig.add_trace(go.Scatter(x=results[0],y=results[1], mode='markers',
+                                text=questions[i,0], showlegend=False)) # hover text goes here)
+        fig.update_layout(title='Social Media Use vs. Affected from COVID',xaxis_title='Overall Affected level',yaxis_title='Social Media Usage? 1=Yes, 2=No')
+        MED1.append(results)
+    df_MED1 = pd.DataFrame(MED1)
+    df_MED1.to_csv('outputs/SocialvAffected.csv')
+    fig.show()
 
 
 
