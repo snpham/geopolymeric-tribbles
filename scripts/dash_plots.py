@@ -169,6 +169,20 @@ if run_plots:
                     f'          - frequentset-3. min support: {min_sup/len(dataset_prep)}')
 
 
+# information gain
+df_gain = pd.read_csv('outputs/gain_summary.csv', index_col=0)
+df_gain2 = df_gain.head(6)
+df_gain2 = df_gain2.append(df_gain.tail(6))
+# print(df)
+gain_table = go.Figure(data=[go.Table(
+                header=dict(values=list(df_gain2.columns),
+                            align='left'),
+                cells=dict(values=[df_gain2.attribute, df_gain2.gain.round(4)],
+                        fill_color='lavender',
+                        align='left'))])    
+gain_table.update_layout(plot_bgcolor=colors['background'],
+                                paper_bgcolor=colors['background'])
+                                
 ## bayesian classifications
 if savefigs:
     update_layout_colorful = dict(barmode='relative', 
