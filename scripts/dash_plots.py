@@ -97,15 +97,14 @@ if savefigs:
                         yaxis=dict( titlefont_size=16, tickfont_size=16),
                         xaxis=dict( tickangle=-45, titlefont_size=16, tickfont_size=16, type='category'),
                         hoverlabel=dict(font_size=14))
-    update_traces = dict(marker_line_width=1.5, opacity=0.7)
 else:
     update_layout = dict(barmode='group',
                 yaxis=dict( titlefont_size=16, tickfont_size=16),
                 xaxis=dict( tickangle=-45, titlefont_size=16, tickfont_size=16, type='category'),
                 plot_bgcolor=colors['background'],paper_bgcolor=colors['background'],
                 font_color=colors['text'], hoverlabel=dict(font_size=14))
-    update_traces = dict(marker_color='#a0a4c0', marker_line_color='#52567A',
-                        marker_line_width=1.5, opacity=0.7)
+update_traces = dict(marker_color='#a0a4c0', marker_line_color='#52567A',
+                    marker_line_width=1.5, opacity=0.7)
 
 if run_plots:
     
@@ -269,10 +268,10 @@ if run_plots:
 
 if savefigs:
     activity_table.write_image("outputs/plots/table.pdf")
-    Support_AllCountries.write_image("outputs/plots/Support_AllCountries.pdf")
-    freqset_1.write_image("outputs/plots/freqset_1.pdf")
-    freqset_2.write_image("outputs/plots/freqset_2.pdf")
-    freqset_3.write_image("outputs/plots/freqset_3.pdf")
+    # Support_AllCountries.write_image("outputs/plots/Support_AllCountries.pdf")
+    # freqset_1.write_image("outputs/plots/freqset_1.pdf")
+    # freqset_2.write_image("outputs/plots/freqset_2.pdf")
+    # freqset_3.write_image("outputs/plots/freqset_3.pdf")
     bayes_vaccine_global.write_image("outputs/plots/bayes_vaccine_global.pdf")
     naive_bayesian_vaccine_age_global.write_image("outputs/plots/naive_bayesian_vaccine_age_global.pdf")
     naive_bayesian_canadaq1_age_global.write_image("outputs/plots/naive_bayesian_canadaq1_age_global.pdf")

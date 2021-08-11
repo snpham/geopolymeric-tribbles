@@ -4,6 +4,7 @@ import dash_html_components as html
 import plotly.graph_objs as go
 from dash.dependencies import Input, Output, State
 from scripts.dash_plots import *
+from scripts.Kmeans_plots import *
 
 
 Trustingroups = ['Trustingroups_1', 'Trustingroups_2', 'Trustingroups_3', 'Trustingroups_4', 'Trustingroups_5',
@@ -211,6 +212,74 @@ app.layout = html.Div(style={'backgroundColor': colors['background']},
                     ], className="six columns"),
                 ], className="row"),
 
+        # kyle's clusters
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 7 description', style={'color': colors['text']}),
+            ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                dcc.Graph(
+                    id='WHOvTrustTot',
+                    figure=WHOvTrustTot,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 7 description', style={'color': colors['text']}),
+            ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                dcc.Graph(
+                    id='WHOvTrustGov',
+                    figure=WHOvTrustGov,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 7 description', style={'color': colors['text']}),
+            ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                dcc.Graph(
+                    id='EstimatesvTrustTot',
+                    figure=EstimatesvTrustTot,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 7 description', style={'color': colors['text']}),
+            ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                dcc.Graph(
+                    id='WorryvAffected',
+                    figure=WorryvAffected,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+        html.Div([
+            html.Div([
+                html.H3('Column 1', style={'color': colors['text']}),
+                html.P('Plot 7 description', style={'color': colors['text']}),
+            ], className="five columns", style={'display': 'inline-block', 'width': '40hh', 'height': '30vh'}),
+            html.Div([
+                html.H3('Column 2', style={'color': colors['text']}),
+                dcc.Graph(
+                    id='SocialvAffected',
+                    figure=SocialvAffected,
+                    ),
+                    ], className="six columns"),
+                ], className="row"),
+
+
 
         ## templates for dropdowns
         # html.Div([
@@ -365,6 +434,9 @@ def update_output(value, freqs):
                     labels={'index': 'activities'})
     freqset_plot.update_traces(update_traces)
     freqset_plot.update_layout(update_layout)
+    freqset_plot.update_layout(hoverlabel=dict(
+                                bgcolor="#cacdeb",
+                                font_size=14,))
     freqset_plot.update_layout(dict(yaxis=dict(range=[0.0, 0.9])))
     freqset_plot.update_layout(title=f'Support of Preparation Activities, Global <br>'
                     f'         - {freqs}. min support: {min_sup/len(dataset_prep)}')
