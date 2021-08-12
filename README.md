@@ -21,7 +21,9 @@
     - The similarity and trends among the different countries
     
 * Answers:
-* 
+    - Some with a higher-than average trust in social media were more susceptible to misinformation. Increased use of social media also correlated with an increase in worry around COVID.
+    - It was incredibly difficult to create an accurate predictive model from the dataset, as only 3.8% of the participants were susceptible to COVID misinformation and they were a somewhat diverse group. Thus, the work could not be extended to predict responses to future scenarios.
+    - Many trends were found between countries. Notable findings include a low propensity for mask usage in the US, UK, and Sweden. 
 
 ### Application of gained knowledge
 
