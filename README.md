@@ -40,8 +40,6 @@
 
 ### Resources
 
-#### Overleaf project: https://www.overleaf.com/project/60bffc8a7ce8dc517e475d0c
-
 #### Part 1 - Project slides: https://drive.google.com/file/d/1A4uMKOTzQ7iFeEN4r5OOof3cL4MyGWYR/view?usp=sharing
 
 #### Part 6 - Final Presentation video: https://cuboulder.zoom.us/rec/share/hdV7ojarHjN2nxBONBHLKRfwV6U2nGQcvXYj4hIi9L7mYP3COA76dhD4LOq0ljtQ.wj3aRpXtbZmfnn-X?startTime=1628725017000
