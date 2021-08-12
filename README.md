@@ -20,11 +20,15 @@
     - Beliefs and concerns about COVID-19 versus other world issues
     - The similarity and trends among the different countries
     
-* Answers: TBD
+* Answers:
+* 
 
 ### Application of gained knowledge
 
-* TBD
+* Those prone to misinformation come from a wide variety of national and political backgrounds; political beliefs and nationality are not good indicators of susceptibility to misinformation
+* Trust levels in various social groups were some of the most powerful indicators of susceptibility to misinformation
+* More nuanced studies need to be conducted to find the degree to which social trust impacts misunderstanding of scientific data
+* A repeat of this study using the same participants would help understand how viewpoints change in light of evolving information
 
 
 
